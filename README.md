@@ -23,7 +23,7 @@
 
 
 ### 1D CNN结构
-*图：1D CNN结构图*
+*图：1D CNN结构图*  
 <img src="Media/Fig. 5. Structure of 1D CNN.jpg" alt="Media/Fig. 5" width="80%" />
 
 
