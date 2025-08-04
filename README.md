@@ -4,22 +4,28 @@
 本项目提出了一种新的振动能量指标，用于量化铣削过程中的颤振（Chatter）和受迫振动（Forced Vibration）对表面质量的影响，并结合加速度信号重建铣削表面拓扑。通过一维卷积神经网络（1D CNN）处理加速度数据，预测表面振幅、空间频率和叠加角度，进而重建表面。1160 张白光干涉图像用于训练和测试模型，重建的表面与真实表面高度匹配，Ra 预测误差小于 0.5 µm。该振动能量指标与表面粗糙度 Ra2 强相关（r = 0.98），为精准的表面质量评估提供了新的方法，并可集成于数字孪生系统，实现实时在线质量监控。
 
 ### 流程介绍与结果
-<img src="Media/Fig. 1. The flow diagram of surface reconstruction and indicator computation.jpg" alt="Media/Fig. 1" width="80%" />
 *图：表面重建与指标计算流程图*
+<img src="Media/Fig. 1. The flow diagram of surface reconstruction and indicator computation.jpg" alt="Media/Fig. 1" width="80%" />
 
-<img src="Media/Fig. 13. Intuitive comparison of real (scanned by WLI) and reconstructed surfaces.jpg" alt="Media/Fig. 13" width="80%" />
 *图：真实表面（通过WLI扫描）与重建表面的直观比较*
+<img src="Media/Fig. 13. Intuitive comparison of real (scanned by WLI) and reconstructed surfaces.jpg" alt="Media/Fig. 13" width="80%" />
 
-<img src="Media/Fig. 9. Distribution of vibration energy Ef and Ec across surface roughness squared Ra2.jpg" alt="Media/Fig. 9" width="80%" />
 *图：振动能量 Ef 和 Ec 在表面粗糙度平方 Ra2 上的分布*
+<img src="Media/Fig. 9. Distribution of vibration energy Ef and Ec across surface roughness squared Ra2.jpg" alt="Media/Fig. 9" width="80%" />
+
 
 ### 实验设备
-<img src="Media/Fig. 6. Experimental equipment and data analysis illustration.png" alt="Media/Fig. 6" width="45%" /> | <img src="Media/Fig. 7. Rtec white-light interferometer (WLI) illustration.jpg" alt="Media/Fig. 7" width="45%" />
-*图：实验设备与数据分析示意图* | *图：Rtec白光干涉仪（WLI）示意图*
+*图：实验设备与数据分析示意图*
+<img src="Media/Fig. 6. Experimental equipment and data analysis illustration.png" alt="Media/Fig. 6" width="45%" /> 
+
+*图：Rtec白光干涉仪（WLI）示意图*
+<img src="Media/Fig. 7. Rtec white-light interferometer (WLI) illustration.jpg" alt="Media/Fig. 7" width="45%" />
+
 
 ### 1D CNN结构
-<img src="Media/Fig. 5. Structure of 1D CNN.jpg" alt="Media/Fig. 5" width="80%" />
 *图：1D CNN结构图*
+<img src="Media/Fig. 5. Structure of 1D CNN.jpg" alt="Media/Fig. 5" width="80%" />
+
 
 
 
