@@ -6,17 +6,17 @@
 ### 流程介绍与结果
 ![Media/Fig. 1. The flow diagram of surface reconstruction and indicator computation](Media/Fig.%201.%20The%20flow%20diagram%20of%20surface%20reconstruction%20and%20indicator%20computation.jpg)
 *图：表面重建与指标计算流程图*
-
+---
 ![Media/Fig. 13. Intuitive comparison of real (scanned by WLI) and reconstructed surfaces](Media/Fig.%2013.%20Intuitive%20comparison%20of%20real%20(scanned%20by%20WLI)%20and%20reconstructed%20surfaces.jpg)
 *图：真实表面（通过WLI扫描）与重建表面的直观比较*
-
+---
 ![Media/Fig. 9. Distribution of vibration energy Ef and Ec across surface roughness squared Ra2](Media/Fig.%209.%20Distribution%20of%20vibration%20energy%20Ef%20and%20Ec%20across%20surface%20roughness%20squared%20Ra2.jpg)
 *图：振动能量 Ef 和 Ec 在表面粗糙度平方 Ra2 上的分布*
-
+---
 ### 实验设备
 ![Media/Fig. 6. Experimental equipment and data analysis illustration](Media/Fig.%206.%20Experimental%20equipment%20and%20data%20analysis%20illustration.png) | ![Media/Fig. 7. Rtec white-light interferometer (WLI) illustration](Media/Fig.%207.%20Rtec%20white-light%20interferometer%20(WLI)%20illustration.jpg)
 *图：实验设备与数据分析示意图* | *图：Rtec白光干涉仪（WLI）示意图*
-
+---
 ### 1D CNN结构
 ![Media/Fig. 5. Structure of 1D CNN](Media/Fig.%205.%20Structure%20of%201D%20CNN.jpg)
 *图：1D CNN结构图*
