@@ -16,10 +16,10 @@
 
 ### 实验设备
 *图：实验设备与数据分析示意图*
-<img src="Media/Fig. 6. Experimental equipment and data analysis illustration.png" alt="Media/Fig. 6" width="45%" /> 
+<img src="Media/Fig. 6. Experimental equipment and data analysis illustration.png" alt="Media/Fig. 6" width="80%" /> 
 
 *图：Rtec白光干涉仪（WLI）示意图*
-<img src="Media/Fig. 7. Rtec white-light interferometer (WLI) illustration.jpg" alt="Media/Fig. 7" width="45%" />
+<img src="Media/Fig. 7. Rtec white-light interferometer (WLI) illustration.jpg" alt="Media/Fig. 7" width="80%" />
 
 
 ### 1D CNN结构
