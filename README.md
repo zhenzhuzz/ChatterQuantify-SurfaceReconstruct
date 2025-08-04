@@ -1,7 +1,10 @@
 # ChatterQuantify-SurfaceReconstruct
 
+# 源代码、数据和图片正在整理并上传中（Under development）。
+
 ## 项目简介
 本项目提出了一种新的振动能量指标，用于量化铣削过程中的颤振（Chatter）和受迫振动（Forced Vibration）对表面质量的影响，并结合加速度信号重建铣削表面拓扑。通过一维卷积神经网络（1D CNN）处理加速度数据，预测表面振幅、空间频率和叠加角度，进而重建表面。1160 张白光干涉图像用于训练和测试模型，重建的表面与真实表面高度匹配，Ra 预测误差小于 0.5 µm。该振动能量指标与表面粗糙度 Ra2 强相关（r = 0.98），为精准的表面质量评估提供了新的方法，并可集成于数字孪生系统，实现实时在线质量监控。
+
 
 ## 项目结构
 
@@ -126,19 +129,10 @@ pip install -r requirements.txt
 
 欢迎提出问题、提交问题报告或贡献代码。您可以通过以下方式与我们联系：
 
-* 提交问题报告：[Issues](https://github.com/username/ChatterQuantify-SurfaceReconstruct/issues)
+* 提交问题报告：[Issues](https://github.com/zhenzhuzz/ChatterQuantify-SurfaceReconstruct/issues)
     
-* 提交代码贡献：[Pull Requests](https://github.com/username/ChatterQuantify-SurfaceReconstruct/pulls)
+* 提交代码贡献：[Pull Requests](https://github.com/zhenzhuzz/ChatterQuantify-SurfaceReconstruct/pulls)
     
 
-许可证
----
 
-本项目使用 MIT 许可证。
 
-```
-
----
-
-此 `README.md` 文件涵盖了项目的概述、数据说明、代码结构和运行说明，您可以直接复制粘贴到您的 GitHub 仓库中使用。
-```
