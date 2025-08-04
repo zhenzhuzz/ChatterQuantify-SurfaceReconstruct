@@ -1,9 +1,16 @@
 # ChatterQuantify-SurfaceReconstruct
 
-# 源代码、数据和图片正在整理并上传中（Under development）。
-
 ## 项目简介
 本项目提出了一种新的振动能量指标，用于量化铣削过程中的颤振（Chatter）和受迫振动（Forced Vibration）对表面质量的影响，并结合加速度信号重建铣削表面拓扑。通过一维卷积神经网络（1D CNN）处理加速度数据，预测表面振幅、空间频率和叠加角度，进而重建表面。1160 张白光干涉图像用于训练和测试模型，重建的表面与真实表面高度匹配，Ra 预测误差小于 0.5 µm。该振动能量指标与表面粗糙度 Ra2 强相关（r = 0.98），为精准的表面质量评估提供了新的方法，并可集成于数字孪生系统，实现实时在线质量监控。
+
+![Media/Fig. 1. The flow diagram of surface reconstruction and indicator computation](Media/Fig.%201.%20The%20flow%20diagram%20of%20surface%20reconstruction%20and%20indicator%20computation.jpg)
+*图：表面重建与指标计算流程图*
+
+![Media/Fig. 6. Experimental equipment and data analysis illustration](Media/Fig.%206.%20Experimental%20equipment%20and%20data%20analysis%20illustration.png) | ![Media/Fig. 7. Rtec white-light interferometer (WLI) illustration](Media/Fig.%207.%20Rtec%20white-light%20interferometer%20(WLI)%20illustration.jpg)
+*图：实验设备与数据分析示意图* | *图：Rtec白光干涉仪（WLI）示意图*
+
+![Media/Fig. 13. Intuitive comparison of real (scanned by WLI) and reconstructed surfaces](Media/Fig.%2013.%20Intuitive%20comparison%20of%20real%20(scanned%20by%20WLI)%20and%20reconstructed%20surfaces.jpg)
+*图：真实表面（通过WLI扫描）与重建表面的直观比较*
 
 
 ## 项目结构
