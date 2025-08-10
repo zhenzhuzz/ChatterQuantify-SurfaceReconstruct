@@ -1,166 +1,219 @@
 # ChatterQuantify-SurfaceReconstruct
 
-# 源代码、数据正在整理上传中 （Under Development）
-
 ## 项目简介
-本项目提出了一种新的振动能量指标，用于量化铣削过程中的颤振（Chatter）和受迫振动（Forced Vibration）对表面质量的影响，并结合加速度信号重建铣削表面拓扑。通过一维卷积神经网络（1D CNN）处理加速度数据，预测表面振幅、空间频率和叠加角度，进而重建表面。1160 张白光干涉图像用于训练和测试模型，重建的表面与真实表面高度匹配，Ra 预测误差小于 0.5 µm。该振动能量指标与表面粗糙度 Ra2 强相关（r = 0.98），为精准的表面质量评估提供了新的方法，并可集成于数字孪生系统，实现实时在线质量监控。
+本项目提出了一种新的振动能量指标，用于量化铣削过程中的颤振（Chatter）和受迫振动（Forced Vibration）对表面质量的影响，并结合加速度信号重建铣削表面拓扑。通过一维卷积神经网络（1D CNN）处理加速度数据，预测表面振幅、空间频率和叠加角度，进而重建表面。1160 张白光干涉图像用于训练和测试模型，重建的表面与真实表面高度匹配，Ra 预测误差小于 0.5 µm。该振动能量指标与表面粗糙度 Ra² 强相关（r = 0.98），为精准的表面质量评估提供了新的方法，并可集成于数字孪生系统，实现实时在线质量监控。
 
 ### 流程介绍与结果
-*图：表面重建与指标计算流程图*
+*图：表面重建与指标计算流程图*  
 <img src="Media/Fig. 1. The flow diagram of surface reconstruction and indicator computation.jpg" alt="Media/Fig. 1" width="80%" />
 
-*图：真实表面（通过WLI扫描）与重建表面的直观比较*
+*图：真实表面（通过WLI扫描）与重建表面的直观比较*  
 <img src="Media/Fig. 13. Intuitive comparison of real (scanned by WLI) and reconstructed surfaces.jpg" alt="Media/Fig. 13" width="80%" />
 
-*图：振动能量 Ef 和 Ec 在表面粗糙度平方 Ra2 上的分布*
+*图：振动能量 Ef 和 Ec 在表面粗糙度平方 Ra² 上的分布*  
 <img src="Media/Fig. 9. Distribution of vibration energy Ef and Ec across surface roughness squared Ra2.jpg" alt="Media/Fig. 9" width="80%" />
 
-
 ### 实验设备
-*图：实验设备与数据分析示意图*
+*图：实验设备与数据分析示意图*  
 <img src="Media/Fig. 6. Experimental equipment and data analysis illustration.png" alt="Media/Fig. 6" width="80%" /> 
 
-*图：Rtec白光干涉仪（WLI）示意图*
+*图：Rtec白光干涉仪（WLI）示意图*  
 <img src="Media/Fig. 7. Rtec white-light interferometer (WLI) illustration.jpg" alt="Media/Fig. 7" width="80%" />
-
 
 ### 1D CNN结构
 *图：1D CNN结构图*  
 <img src="Media/Fig. 5. Structure of 1D CNN.jpg" alt="Media/Fig. 5" width="80%" />
 
 
-
-
-
-
-
 ## 项目结构
-
 ```
 
 ChatterQuantify-SurfaceReconstruct/  
 │  
 ├── data/  
-│ ├── EXP20211020Data_path.mat # 数据文件  
-│ ├── EXP20211020Data_path.xlsx # 数据文件（Excel格式，方便查看）  
-│ ├── EXP20211020Data_path_backups/ # 备份文件（如果有）  
-│ └── raw_data/ # 其他原始数据  
+│ ├── EXP20211020Data_path.mat # 核心数据索引表格（含58组加工参数与白光表面数据索引）  
+│ ├── EXP20211020Data_path.xlsx # 上述索引的Excel可读版本  
+│ ├── raw_data/ # EXP20211020 所有加速度及白光原始数据文件  
+│ ├── backups/ # 其他 mat 备份文件（可忽略）  
 │  
 ├── src/  
-│ ├── surface_processing/ # 表面处理相关代码  
-│ │ ├── func_smoothed_visualization.m # 平滑和可视化  
-│ │ └── surface_preprocessing.m # 预处理程序  
-│ ├── acceleration_processing/ # 加速度数据处理相关代码  
-│ │ ├── Acc2Surf.m # 加速度到表面重建  
-│ │ └── Acc_analysis.m # 加速度分析  
-│ ├── cnn_model/ # CNN模型代码  
-│ │ ├── cnn_train.py # CNN训练代码  
-│ │ └── cnn_inference.py # CNN预测代码  
-│ ├── utils/ # 工具函数  
-│ │ ├── fft_analysis.m # FFT分析工具  
-│ │ └── data_processing.m # 数据处理工具  
+│ ├── Surface/ # 白光表面数据处理程序  
+│ │ ├── func_smoothed_visualization.m # 表面平滑与可视化（可直接运行）  
+│ │ └── surface_preprocessing.m # 白光表面数据预处理程序  
+│ ├── Acc/ # 加速度数据单独处理的程序  
+│ │ └── Acc_analysis.m # 加速度信号分析  
+│ ├── Acc2Surf/ # 从加速度信号重建仿真白光的完整程序  
+│ │ ├── core_functions/ # 重建核心算法  
+│ │ ├── Figures/ # 论文相关图片（受迫/颤振分解结果等）  
+│ │ └── utils/ # 支撑工具函数  
+│ ├── cnn_model/ # 1D CNN 训练与预测程序  
+│ │ ├── CNN_8_FFT.ipynb # 最终使用的CNN训练程序（RTX3090）  
+│ │ └── cnn_inference.py # 训练后批量预测脚本  
+│ ├── utils/ # 公共工具函数  
+│ │ ├── fft_analysis.m # FFT分析  
+│ │ └── data_processing.m # 数据处理  
 │  
 ├── Figures/ # 图像和仿真结果  
-│ ├── Acc2Surf/Figures/ # 加速度到表面仿真图像  
-│ ├── CNN_Figures/ # CNN训练结果图像  
-│ └── Paper_Figures/ # 论文中的插图  
+│ ├── Acc2Surf/Figures/ # 重建表面及能量分析图像  
+│ ├── CNN_Figures/ # CNN训练与预测结果  
+│ └── Paper_Figures/ # 论文插图  
 │  
 ├── tests/ # 单元测试  
-│ ├── test_surface_processing.m # 表面处理单元测试  
-│ ├── test_acceleration_processing.m # 加速度数据处理单元测试  
-│ └── test_cnn_model.m # CNN模型单元测试  
+│ ├── test_surface_processing.m # 表面处理测试  
+│ ├── test_acceleration_processing.m # 加速度数据处理测试  
+│ └── test_cnn_model.m # CNN模型测试  
 │  
 ├── README.md # 项目说明文档  
-└── requirements.txt # Python依赖包列表
+└── requirements.txt # Python依赖包
 
 ```
 
 ## 数据说明
 
-项目使用的主要数据文件有：
+### 核心索引表
+- **EXP20211020Data_path.mat / .xlsx**：包含 58 组加工参数，每组参数对应 1 道槽铣，每道槽有 20 张白光干涉图像，总计 1160 张。
+- 其他 `.mat` 文件为备份，可忽略。
+- `实验数据库.xlsx` 为最原始数据索引，已被整合为上述 `.mat`，可忽略。
 
-- **EXP20211020Data_path.mat**：包含58组加工参数，每组参数对应1道槽铣，数据结构包括加速度数据和白光表面数据。
-- **realSurf**：白光干涉测量的真实表面数据。
-- **simSurf**：通过加速度信号和CNN模型重建的仿真表面数据。
+### 重要数据文件夹
+- **Surface/**：白光表面数据处理程序  
+- **Acc/**：加速度信号独立分析程序  
+- **Acc2Surf/**：从加速度信号重建仿真白光表面的完整程序  
+- **EXP20211020/**：所有加速度信号与白光原始数据  
 
-数据表格列解释：
-- `EXP`：实验槽铣板的日期。
-- `s_r_min`：转速（单位rpm）。
-- `d_0_1mm`：切深（单位0.1mm）。
-- `f_mm_min`：进给（单位mm/min）。
-- `f_t_mm_tooth`：每齿进给量（单位mm/tooth）。
-- `Path2Acc`：槽对应的加速度数据路径。
-- `Path2FFTWhole`：槽对应的加速度数据FFT路径。
-- `AccFile`：槽对应的加速度数据文件名。
-- `realSurf`：白光拍摄的表面数据。
-- `simSurf`：通过加速度重建的仿真表面数据。
+### 数据表结构
+`EXP20211020Data_path` 共 23 列，包含加工参数、加速度信号路径、白光数据索引、状态标注等信息。  
+其中 `realSurf`、`simSurf` 分别为真实白光数据与仿真重建数据的多层结构 table，详细列注释已在项目说明中保留。
 
 ## 核心程序
 
 ### 表面处理
-
-- **func_smoothed_visualization.m**：一键运行的表面数据平滑和可视化程序，能够对白光表面数据进行处理并生成图像。
-- **surface_preprocessing.m**：用于对白光数据进行预处理。
+- **Surface/func_smoothed_visualization.m**：一键运行，完成白光表面数据的平滑与可视化。
 
 ### 加速度数据处理
+- **Acc/**：包含加速度信号分析的独立工具程序。
 
-- **Acc2Surf.m**：将加速度信号转换为白光表面数据。
-- **Acc_analysis.m**：用于加速度数据的分析。
+### 从加速度重建表面
+- **Acc2Surf/**：实现从加速度信号 → 频域特征 → 表面参数预测 → 仿真白光表面生成的完整流程。
 
-### CNN模型训练与预测
+### 1D CNN 模型训练与预测
 
-- **cnn_train.py**：用于训练CNN模型，输入加速度特征，输出重建的表面数据。
-- **cnn_inference.py**：使用训练好的CNN模型进行预测，生成仿真表面数据。
+#### 模型简介
+本项目使用的 1D CNN 模型通过融合 **加速度信号的频域特征（幅值和相位）** 与 **切削工艺参数**，预测切削表面参数 (Amplitude, Frequency, Orientation_angle)。  
+核心思想是先对加速度信号进行 FFT 转换提取频域信息，再结合切削参数送入多输入神经网络实现回归预测。
+
+#### 训练环境（AutoDL 平台）
+- **操作系统**: Ubuntu 20.04  
+- **Python**: 3.8  
+- **TensorFlow**: 2.9.0  
+- **GPU**: NVIDIA RTX 3090 (24 GB)  
+- **CUDA**: 11.2  
+- **CPU**: 14-core Intel® Xeon® Platinum 8362 @ 2.80GHz  
+- **RAM**: 45 GB  
+
+#### 数据处理流程
+1. 从 `AccSeg` 读取加速度信号，进行 FFT 分解，提取幅值和相位特征。  
+2. 从文件名解析切削参数（转速、切深、进给、采样起止时间）。  
+3. 读取 `Label` 目录下对应标签数据（真实表面特征）。  
+4. 对加速度频域特征、切削参数、标签进行标准化。  
+
+#### 网络结构
+- **加速度特征分支**：Conv1D → MaxPooling → Dropout → Flatten  
+- **切削参数分支**：Dense → Dropout  
+- **融合层**：Concatenate → Dense → Dropout → Dense 输出预测矩阵  
+
+#### 训练细节
+- 优化器：Adam (lr = 1e-6)  
+- 损失函数：MSE  
+- 回调：EarlyStopping、LearningRateScheduler  
+- 模型保存：`surface_reconstruction_model.h5` + 各归一化器 (`acc_scaler.pkl`、`cutting_scaler.pkl`、`label_scaler.pkl`)  
+
+#### 预测流程
+1. 加载模型与归一化器。  
+2. 对新加速度数据进行 FFT 特征提取和归一化处理。  
+3. 输出预测结果并反归一化，保存至 `Predicted` 目录。  
+4. 可调用可视化与评估脚本，生成真实值与预测值的对比曲线，并计算 MSE 与 Pearson 相关系数。  
+
+模型性能：
+- **MSE** ≈ 1.45 × 10⁻¹³  
+- **Pearson 相关系数** ≈ 0.994  
 
 ## 运行说明
 
 ### 1. 表面数据处理
-
-运行 `src/surface_processing/func_smoothed_visualization.m` 进行白光表面数据的平滑处理和可视化。
+```bash
+cd src/Surface
+matlab -r "func_smoothed_visualization"
+```
 
 ### 2. 加速度数据处理
 
-使用 `src/acceleration_processing/Acc2Surf.m` 将加速度信号转换为表面数据，进行后续分析。
+```bash
+cd src/Acc
+matlab -r "Acc_analysis"
+```
 
-### 3. CNN模型训练
+### 3. 从加速度重建表面
 
-运行 `src/cnn_model/cnn_train.py` 对CNN模型进行训练，训练结果会保存为模型文件。
+```bash
+cd src/Acc2Surf
+# 按需运行核心算法脚本
+```
 
-### 4. CNN预测
+### 4. 1D CNN 模型训练
 
-使用 `src/cnn_model/cnn_inference.py` 对新的加速度数据进行预测，生成仿真表面数据。
+```bash
+cd src/cnn_model
+jupyter notebook CNN_8_FFT.ipynb
+```
 
-## 依赖
+### 5. 批量预测
 
-本项目依赖以下Python包：
+```bash
+cd src/cnn_model
+python cnn_inference.py
+```
 
-- `tensorflow==2.x`
-- `numpy==1.x`
-- `scipy==1.x`
-- `matplotlib==3.x`
-- `pandas==1.x`
-- `scikit-learn==0.x`
-
-请在项目根目录下运行以下命令来安装所需的依赖：
+依赖
+--
 
 ```bash
 pip install -r requirements.txt
 ```
 
+主要依赖：
+
+* tensorflow==2.9.0
+    
+* numpy
+    
+* scipy
+    
+* matplotlib
+    
+* pandas
+    
+* scikit-learn
+    
+* joblib
+    
+
 单元测试
 ----
 
-项目中包含了单元测试代码，用于验证各模块的功能和正确性。运行 `tests/` 文件夹中的测试文件来确保所有功能正常。
+```bash
+cd tests
+matlab -r "test_surface_processing"
+matlab -r "test_acceleration_processing"
+matlab -r "test_cnn_model"
+```
 
 贡献
 --
 
-欢迎提出问题、提交问题报告或贡献代码。您可以通过以下方式与我们联系：
+欢迎提出问题、提交 Issue 或 Pull Request：
 
-* 提交问题报告：[Issues](https://github.com/zhenzhuzz/ChatterQuantify-SurfaceReconstruct/issues)
+* [Issues](https://github.com/zhenzhuzz/ChatterQuantify-SurfaceReconstruct/issues)
     
-* 提交代码贡献：[Pull Requests](https://github.com/zhenzhuzz/ChatterQuantify-SurfaceReconstruct/pulls)
+* [Pull Requests](https://github.com/zhenzhuzz/ChatterQuantify-SurfaceReconstruct/pulls)
     
-
-
-
